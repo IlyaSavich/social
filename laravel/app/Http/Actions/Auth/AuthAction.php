@@ -4,26 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Actions\Auth;
 
-use Illuminate\Support\Facades\Auth;
+use App\Http\Actions\ApiAction;
 
-abstract class AuthAction
+abstract class AuthAction extends ApiAction
 {
-    /**
-     * Get the guard to be used during authentication.
-     *
-     * @return \Illuminate\Contracts\Auth\Guard
-     */
-    protected function guard()
-    {
-        return Auth::guard();
-    }
-
     protected function responseWithToken(string $token)
     {
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => Auth::guard()->factory()->getTTL() * 60,
+            'expires_in' => $this->guard()->factory()->getTTL() * 60,
         ]);
     }
 }

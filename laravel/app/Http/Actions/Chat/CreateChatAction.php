@@ -12,6 +12,8 @@ class CreateChatAction extends ApiAction
 {
     public function __invoke(CreateChatRequest $request)
     {
+        $this->validateUsersInPrivateChat($request);
+
         $chat = Chat::create([
             'name' => $request->name,
             'type' => $request->type,
@@ -24,6 +26,13 @@ class CreateChatAction extends ApiAction
             });
 
             $chat->users()->sync($pivotData, false);
+        }
+    }
+
+    private function validateUsersInPrivateChat(CreateChatRequest $request)
+    {
+        if ($request->type === Chat::PRIVATE_TYPE && count($request->userIds) !== 2) {
+            throw new \InvalidArgumentException('There must be 2 users in private chat.');
         }
     }
 }

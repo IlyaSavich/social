@@ -1,0 +1,7 @@
+#1
+color of text #35DA94 rgb(53,218,148)
+color of background #316351 rgb(49,99,81)
+
+#2
+color of text #74EC4B rgb(116,236,75)
+color of background #131314 rgb(19,19,20)

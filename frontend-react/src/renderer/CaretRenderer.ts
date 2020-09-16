@@ -1,14 +1,19 @@
 import canvas from '../services/Canvas';
-import caret from '../services/Caret'
+import caret from '../services/Caret';
+import textConfigs from '../configs/text';
+import caretConfigs from '../configs/caret';
 
-const CARET_COLOR = '#74EC4B';
-
-const SIZE = { x: 5, y: 20 };
+const CARET_COLOR = textConfigs.color;
+const SIZE = caretConfigs.size;
 
 export function render() {
     let shouldBeDrawn = true;
 
     setInterval(() => {
+        if (shouldBeDrawn && caret.isHidden) {
+            return;
+        }
+
         canvas.context.save();
 
         if (shouldBeDrawn) {

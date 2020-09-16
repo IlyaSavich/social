@@ -1,4 +1,3 @@
-import * as textRenderer from '../renderer/TextRenderer'
 import * as caretRenderer from '../renderer/CaretRenderer'
 import * as textService from '../services/text/TextService'
 import canvas from '../services/Canvas'
@@ -12,7 +11,7 @@ export function init() {
     canvas.canvas.height = CANVAS_HEIGHT;
     canvas.canvas.width = CANVAS_WIDTH;
 
-    textService.appendText('Login: ');
+    textService.appendText('Login: '); // TODO
 
     caretRenderer.render();
 }

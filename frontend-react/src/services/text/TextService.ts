@@ -15,6 +15,7 @@ export function getScreenText(): string[] {
 }
 
 function renderScreenText() {
+    caret.hide();
     caret.resetPosition();
 
     clearRenderer.clear();
@@ -34,4 +35,6 @@ function renderScreenText() {
             caret.newLine();
         }
     });
+
+    caret.show();
 }

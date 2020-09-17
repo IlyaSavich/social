@@ -1,6 +1,7 @@
 export default {
     size: {
-        x: 5,
-        y: 20,
+        x: 12.5,
+        y: 21,
     },
+    yOffset: 4,
 };

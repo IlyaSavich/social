@@ -1,4 +1,4 @@
-import canvas from '../services/Canvas';
+import canvas from '../services/canvas/Canvas';
 
 export function clear() {
     canvas.context.save();

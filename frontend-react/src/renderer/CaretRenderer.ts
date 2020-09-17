@@ -1,10 +1,9 @@
-import canvas from '../services/Canvas';
-import caret from '../services/Caret';
+import canvas from '../services/canvas/Canvas';
+import caret from '../services/caret/Caret';
 import textConfigs from '../configs/text';
 import caretConfigs from '../configs/caret';
-
-const CARET_COLOR = textConfigs.color;
-const SIZE = caretConfigs.size;
+import * as commandService from '../services/command/CommandService';
+import * as textRenderer from './TextRenderer';
 
 export function render() {
     let shouldBeDrawn = true;
@@ -29,16 +28,26 @@ export function render() {
 }
 
 function renderCaret() {
-    canvas.context.fillStyle = CARET_COLOR;
+    canvas.context.fillStyle = textConfigs.color;
     const start = { x: caret.x, y: caret.y };
-    const size = SIZE;
+    const size = caretConfigs.size;
 
-    canvas.context.fillRect(start.x, start.y, size.x, -size.y);
+    canvas.context.fillRect(start.x, start.y + caretConfigs.yOffset, size.x, -size.y);
+
+    renderBackgroundLetter(textConfigs.backgroundColor);
 }
 
 function clearCaret() {
     const start = { x: caret.x - 1, y: caret.y + 1 };
-    const size = { x: SIZE.x + 2, y: SIZE.y + 2 };
+    const size = { x: caretConfigs.size.x + 2, y: caretConfigs.size.y + 2 };
 
-    canvas.context.clearRect(start.x, start.y, size.x, -size.y);
+    canvas.context.clearRect(start.x, start.y + caretConfigs.yOffset, size.x, -size.y);
+
+    renderBackgroundLetter(textConfigs.color);
+}
+
+function renderBackgroundLetter(color: string) {
+    const letter = commandService.getLetterForActiveCommand(caret.textPosition);
+
+    textRenderer.render(letter, caret.x, caret.y, color);
 }

@@ -2,7 +2,12 @@ import React from 'react';
 import './App.css';
 
 function App() {
-    return <canvas height={600} width={1000} id="main"/>;
+    return (
+        <div>
+            <canvas height={600} width={1000} id="main"/>
+            <canvas height={600} width={1000} id="active"/>
+        </div>
+    );
 }
 
 export default App;

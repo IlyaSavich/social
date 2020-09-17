@@ -1,4 +1,4 @@
-import canvas from '../services/Canvas'
+import canvas from '../services/canvas/Canvas'
 // import caret from '../services/Caret'
 import * as clearRenderer from './ClearRenderer'
 

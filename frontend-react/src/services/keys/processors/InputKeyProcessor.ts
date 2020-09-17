@@ -1,5 +1,6 @@
 import { KeyProcessor } from './KeyProcessor';
-import * as textService from '../../text/TextService';
+import * as commandService from '../../command/CommandService';
+import * as caretService from '../../caret/CaretService';
 
 export class InputKeyProcessor extends KeyProcessor {
     public isApplicable(e: KeyboardEvent): boolean {
@@ -12,7 +13,10 @@ export class InputKeyProcessor extends KeyProcessor {
     }
 
     public process(e: KeyboardEvent) {
-        textService.appendText(e.key);
+        const newCommand = commandService.insertIntoActiveCommand(e.key);
+
+        caretService.appendPositionByText(e.key);
+        commandService.replaceActiveCommand(newCommand);
     }
 
     private isNumpadKey(e: KeyboardEvent) {

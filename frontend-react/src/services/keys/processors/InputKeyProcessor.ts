@@ -13,7 +13,7 @@ export class InputKeyProcessor extends KeyProcessor {
     }
 
     public process(e: KeyboardEvent) {
-        const newCommand = commandService.insertIntoActiveCommand(e.key);
+        const newCommand = commandService.insertIntoCaretPositionActiveCommand(e.key);
 
         caretService.appendPositionByText(e.key);
         commandService.replaceActiveCommand(newCommand);

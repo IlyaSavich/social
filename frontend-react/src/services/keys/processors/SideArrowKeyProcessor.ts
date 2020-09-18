@@ -1,8 +1,9 @@
 import { KeyProcessor } from './KeyProcessor';
-import commandStorage from '../../command/CommandStorage';
+import * as commandService from '../../command/CommandService';
 import * as textService from '../../text/TextService';
 import caret from '../../caret/Caret';
-import * as textRenderer from '../../../renderer/TextRenderer';
+import * as caretService from '../../caret/CaretService';
+import { Direction } from '../../caret/CaretService';
 
 export class SideArrowKeyProcessor extends KeyProcessor {
     public isApplicable(e: KeyboardEvent): boolean {
@@ -13,28 +14,21 @@ export class SideArrowKeyProcessor extends KeyProcessor {
 
     public process(e: KeyboardEvent) {
         const previousCaretTextPosition = caret.textPosition;
-        const previousCaretPixelPosition = caret.x;
 
         textService.renderScreenText();
 
         caret.hide();
 
         if (e.keyCode === 37) {
-            const command = commandStorage.get();
-            const letter = command.slice(previousCaretTextPosition - 1, previousCaretTextPosition);
-            const pixelOffset = textRenderer.measureText(letter).width;
+            const letter = commandService.getLetterForActiveCommand(previousCaretTextPosition - 1);
 
-            caret.setTextPosition(previousCaretTextPosition - 1);
-            caret.setPixelXPosition(previousCaretPixelPosition - pixelOffset);
+            caretService.appendPositionByText(letter, Direction.Left);
         }
 
         if (e.keyCode === 39) {
-            const command = commandStorage.get();
-            const letter = command.slice(previousCaretTextPosition, previousCaretTextPosition + 1);
-            const pixelOffset = textRenderer.measureText(letter).width;
+            const letter = commandService.getLetterForActiveCommand(previousCaretTextPosition);
 
-            caret.setTextPosition(previousCaretTextPosition + 1);
-            caret.setPixelXPosition(previousCaretPixelPosition + pixelOffset);
+            caretService.appendPositionByText(letter, Direction.Right);
         }
 
         caret.show();

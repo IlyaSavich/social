@@ -12,7 +12,6 @@ export class EnterKeyProcessor extends KeyProcessor {
         textService.newLine();
         commandService.executeActiveCommand();
         commandService.newCommand();
-        caretService.appendPositionByText(commandService.pathInfo());
     }
 
     private isEnterKey(e: KeyboardEvent) {

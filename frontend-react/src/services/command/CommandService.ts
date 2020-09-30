@@ -24,12 +24,13 @@ export function removeFromPositionActiveCommand(position: number): string {
 
 export function replaceActiveCommand(command: string): void {
     commandStorage.replaceText(command);
-    textService.updateLastRow(pathInfo() + command); // TODO
+    textService.updateLastRow(pathInfo()); // TODO
+    textService.appendText(command);
 }
 
 export function newCommand(): void {
     commandStorage.newCommand();
-    textService.updateLastRow(pathInfo() + ''); // TODO
+    textService.updateLastRow(pathInfo()); // TODO
 }
 
 export function pathInfo(): string {

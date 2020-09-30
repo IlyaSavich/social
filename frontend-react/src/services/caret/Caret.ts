@@ -50,6 +50,7 @@ class Caret {
     public newLine() {
         this._y += ROW_HEIGHT;
         this.returnCaret();
+        this.setTextPosition(0);
     }
 
     public show() {

@@ -1,19 +1,20 @@
 import textStorage from './TextStorage';
 import caret from '../caret/Caret';
 import * as textRenderer from '../../renderer/TextRenderer';
+import * as caretService from '../caret/CaretService';
 
 const ROWS_ON_SCREEN = 10;
 
 export function appendText(text: string): void {
-    const caretShift = textRenderer.measureText(text).width;
-
-    caret.appendPixelXPosition(caretShift);
+    caretService.appendPixelPositionByText(text);
     textStorage.appendToLastRow(text);
 
     renderScreenText();
 }
 
 export function updateLastRow(text: string): void {
+    caret.returnCaret();
+    caretService.appendPixelPositionByText(text);
     textStorage.updateLastRow(text);
     renderScreenText();
 }

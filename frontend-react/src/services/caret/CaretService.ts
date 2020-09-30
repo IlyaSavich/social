@@ -8,5 +8,10 @@ export enum Direction {
 
 export function appendPositionByText(text: string, direction: number = Direction.Right): void {
     caret.appendTextPosition(text.length * direction);
+
+    appendPixelPositionByText(text, direction);
+}
+
+export function appendPixelPositionByText(text: string, direction: number = Direction.Right): void {
     caret.appendPixelXPosition(textRenderer.measureText(text).width * direction);
 }

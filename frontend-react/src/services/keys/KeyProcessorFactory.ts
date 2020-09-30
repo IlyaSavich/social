@@ -6,6 +6,7 @@ import { BackspaceKeyProcessor } from './processors/BackspaceKeyProcessor';
 import { DeleteKeyProcessor } from './processors/DeleteKeyProcessor';
 import { EnterKeyProcessor } from './processors/EnterKeyProcessor';
 import { ReloadKeyProcessor } from './processors/ReloadKeyProcessor';
+import { ResetKeyProcessor } from './processors/ResetKeyProcessor';
 
 const keyProcessorSearcher = new TreeSearcher<IKeyProcessor>({
     node: new KeyProcessor(),
@@ -15,7 +16,10 @@ const keyProcessorSearcher = new TreeSearcher<IKeyProcessor>({
             children: [
                 {
                     node: new ReloadKeyProcessor(),
-                }
+                },
+                {
+                    node: new ResetKeyProcessor(),
+                },
             ],
         },
         {

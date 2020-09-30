@@ -10,8 +10,8 @@ export class BackspaceKeyProcessor extends KeyProcessor {
     }
 
     public process(e: KeyboardEvent) {
-        const letterToRemove = commandService.getLetterForActiveCommand(caret.textPosition - 1);
-        const newCommand = commandService.removeFromPositionActiveCommand(caret.textPosition - 1);
+        const letterToRemove = commandService.getLetterForActiveCommand(caret.textPositionX - 1);
+        const newCommand = commandService.removeFromPositionActiveCommand(caret.textPositionX - 1);
 
         caretService.appendPositionByText(letterToRemove, Direction.Left);
         commandService.replaceActiveCommand(newCommand);

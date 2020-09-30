@@ -13,7 +13,7 @@ export function getLetterForActiveCommand(position: number): string {
 export function insertIntoCaretPositionActiveCommand(text: string): string {
     const command = commandStorage.get();
 
-    return command.slice(0, caret.textPosition) + text + command.slice(caret.textPosition);
+    return command.slice(0, caret.textPositionX) + text + command.slice(caret.textPositionX);
 }
 
 export function removeFromPositionActiveCommand(position: number): string {
@@ -31,6 +31,24 @@ export function replaceActiveCommand(command: string): void {
 export function newCommand(): void {
     commandStorage.newCommand();
     textService.updateLastRow(pathInfo()); // TODO
+}
+
+export function resetCommand(): void {
+    commandStorage.resetOffset();
+    commandStorage.replaceText('');
+    textService.updateLastRow(pathInfo()); // TODO
+}
+
+export function setPreviousCommand(): void {
+    commandStorage.increaseOffset();
+    textService.updateLastRow(pathInfo()); // TODO
+    textService.appendText(commandStorage.get());
+}
+
+export function setNextCommand(): void {
+    commandStorage.decreaseOffset();
+    textService.updateLastRow(pathInfo()); // TODO
+    textService.appendText(commandStorage.get());
 }
 
 export function pathInfo(): string {

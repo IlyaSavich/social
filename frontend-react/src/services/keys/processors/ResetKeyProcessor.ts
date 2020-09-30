@@ -10,7 +10,7 @@ export class ResetKeyProcessor extends KeyProcessor {
     public process(e: KeyboardEvent) {
         textService.appendText('^C');
         textService.newLine();
-        commandService.newCommand();
+        commandService.resetCommand();
     }
 
     private isResetKey(e: KeyboardEvent) {

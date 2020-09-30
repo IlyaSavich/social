@@ -1,9 +1,9 @@
 import { KeyProcessor } from './KeyProcessor';
 import * as commandService from '../../command/CommandService';
-import * as textService from '../../text/TextService';
 import caret from '../../caret/Caret';
 import * as caretService from '../../caret/CaretService';
 import { Direction } from '../../caret/CaretService';
+import * as screenTextRenderer from '../../../renderer/ScreenTextRenderer';
 
 export class SideArrowKeyProcessor extends KeyProcessor {
     public isApplicable(e: KeyboardEvent): boolean {
@@ -13,19 +13,19 @@ export class SideArrowKeyProcessor extends KeyProcessor {
     }
 
     public process(e: KeyboardEvent) {
-        const previousCaretTextPosition = caret.textPosition;
+        const previousCaretTextPosition = caret.textPositionX;
 
-        textService.renderScreenText();
+        screenTextRenderer.draw();
 
         caret.hide();
 
-        if (e.keyCode === 37) {
+        if (this.isLeftArrowKey(e)) {
             const letter = commandService.getLetterForActiveCommand(previousCaretTextPosition - 1);
 
             caretService.appendPositionByText(letter, Direction.Left);
         }
 
-        if (e.keyCode === 39) {
+        if (this.isRightArrowKey(e)) {
             const letter = commandService.getLetterForActiveCommand(previousCaretTextPosition);
 
             caretService.appendPositionByText(letter, Direction.Right);

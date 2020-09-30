@@ -7,7 +7,8 @@ class Caret {
     private _x: number = ZERO_COORDINATE.x;
     private _y: number = ZERO_COORDINATE.y;
     private isHiddenLevel: number = 0;
-    private _textPosition: number = 0;
+    private _textPositionX: number = 0;
+    private linePosition: number = 1;
 
     public get x(): number {
         return this._x;
@@ -21,26 +22,12 @@ class Caret {
         return this.isHiddenLevel > 0;
     }
 
-    public get textPosition(): number {
-        return this._textPosition;
+    public get textPositionX(): number {
+        return this._textPositionX;
     }
 
     public appendPixelXPosition(x: number) {
         this._x += x;
-    }
-
-    public setPixelXPosition(x: number) {
-        this._x = x;
-    }
-
-    public setPixelPosition(x: number, y: number) {
-        this._x = x;
-        this._y = y;
-    }
-
-    public resetPixelPosition() {
-        this._x = ZERO_COORDINATE.x;
-        this._y = ZERO_COORDINATE.y;
     }
 
     public returnCaret() {
@@ -48,7 +35,11 @@ class Caret {
     }
 
     public newLine() {
-        this._y += ROW_HEIGHT;
+        if (this.linePosition < screenConfigs.rowsOnScreen) {
+            this.linePosition++;
+            this._y += ROW_HEIGHT;
+        }
+
         this.returnCaret();
         this.setTextPosition(0);
     }
@@ -64,13 +55,13 @@ class Caret {
     }
 
     public appendTextPosition(textPosition: number): void {
-        const newPosition = this._textPosition + textPosition;
+        const newPosition = this._textPositionX + textPosition;
 
-        this._textPosition = newPosition >= 0 ? newPosition : 0;
+        this._textPositionX = newPosition >= 0 ? newPosition : 0;
     }
 
     public setTextPosition(textPosition: number): void {
-        this._textPosition = textPosition >= 0 ? textPosition : 0;
+        this._textPositionX = textPosition >= 0 ? textPosition : 0;
     }
 }
 

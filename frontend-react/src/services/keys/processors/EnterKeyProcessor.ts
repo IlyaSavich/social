@@ -1,7 +1,6 @@
 import { KeyProcessor } from './KeyProcessor';
 import * as commandService from '../../command/CommandService';
 import * as textService from '../../text/TextService';
-import * as caretService from '../../caret/CaretService';
 
 export class EnterKeyProcessor extends KeyProcessor {
     public isApplicable(e: KeyboardEvent): boolean {

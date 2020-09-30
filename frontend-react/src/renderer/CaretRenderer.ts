@@ -47,7 +47,7 @@ function clearCaret() {
 }
 
 function renderBackgroundLetter(color: string) {
-    const letter = commandService.getLetterForActiveCommand(caret.textPosition);
+    const letter = commandService.getLetterForActiveCommand(caret.textPositionX);
 
     textRenderer.render(letter, caret.x, caret.y, color);
 }

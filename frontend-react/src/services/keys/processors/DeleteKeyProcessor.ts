@@ -8,7 +8,7 @@ export class DeleteKeyProcessor extends KeyProcessor {
     }
 
     public process(e: KeyboardEvent) {
-        const newCommand = commandService.removeFromPositionActiveCommand(caret.textPosition);
+        const newCommand = commandService.removeFromPositionActiveCommand(caret.textPositionX);
 
         commandService.replaceActiveCommand(newCommand);
     }

@@ -5,12 +5,18 @@ import { SideArrowKeyProcessor } from './processors/SideArrowKeyProcessor';
 import { BackspaceKeyProcessor } from './processors/BackspaceKeyProcessor';
 import { DeleteKeyProcessor } from './processors/DeleteKeyProcessor';
 import { EnterKeyProcessor } from './processors/EnterKeyProcessor';
+import { ReloadKeyProcessor } from './processors/ReloadKeyProcessor';
 
 const keyProcessorSearcher = new TreeSearcher<IKeyProcessor>({
     node: new KeyProcessor(),
     children: [
         {
             node: new InputKeyProcessor(),
+            children: [
+                {
+                    node: new ReloadKeyProcessor(),
+                }
+            ],
         },
         {
             node: new SideArrowKeyProcessor(),

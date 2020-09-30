@@ -10,22 +10,18 @@ export function getLetterForActiveCommand(position: number): string {
     return command.slice(position, position + 1);
 }
 
-export function insertIntoCaretPositionActiveCommand(text: string): string {
+export function insertIntoCaretPositionActiveCommand(text: string): void {
     const command = commandStorage.get();
+    const newCommand = command.slice(0, caret.textPositionX) + text + command.slice(caret.textPositionX);
 
-    return command.slice(0, caret.textPositionX) + text + command.slice(caret.textPositionX);
+    replaceActiveCommand(newCommand);
 }
 
-export function removeFromPositionActiveCommand(position: number): string {
+export function removeFromPositionActiveCommand(position: number): void {
     const command = commandStorage.get();
+    const newCommand = command.slice(0, position) + command.slice(position + 1);
 
-    return command.slice(0, position) + command.slice(position + 1);
-}
-
-export function replaceActiveCommand(command: string): void {
-    commandStorage.replaceText(command);
-    textService.updateLastRow(pathInfo()); // TODO
-    textService.appendText(command);
+    replaceActiveCommand(newCommand);
 }
 
 export function newCommand(): void {
@@ -35,7 +31,7 @@ export function newCommand(): void {
 
 export function resetCommand(): void {
     commandStorage.resetOffset();
-    commandStorage.replaceText('');
+    commandStorage.replaceCommand('');
     textService.updateLastRow(pathInfo()); // TODO
 }
 
@@ -69,4 +65,11 @@ export function executeActiveCommand(): void {
 
         throw e;
     }
+}
+
+function replaceActiveCommand(command: string) {
+    commandStorage.replaceCommand(command);
+
+    textService.updateLastRow(pathInfo()); // TODO
+    textService.appendText(command);
 }

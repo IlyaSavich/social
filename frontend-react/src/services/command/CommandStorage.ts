@@ -6,16 +6,8 @@ class CommandStorage {
         return this.history[this.getPointer(offset)];
     }
 
-    public addText(text: string, offset: number = this.offset): void {
-        this.history[this.getPointer(offset)] += text;
-    }
-
-    public replaceText(text: string, offset: number = this.offset): void {
+    public replaceCommand(text: string, offset: number = this.offset): void {
         this.history[this.getPointer(offset)] = text;
-    }
-
-    public removeText(position: number, offset: number = this.offset): void {
-        this.history[this.getPointer(offset)].slice(position, 1);
     }
 
     public clear(): void {

@@ -32,6 +32,7 @@ class Caret {
 
     public returnCaret() {
         this._x = ZERO_COORDINATE.x;
+        this.setTextPosition(0);
     }
 
     public newLine() {
@@ -41,7 +42,6 @@ class Caret {
         }
 
         this.returnCaret();
-        this.setTextPosition(0);
     }
 
     public show() {

@@ -1,13 +1,15 @@
 import TreeSearcher from '../TreeSearcher';
 import { IKeyProcessor, KeyProcessor } from './processors/KeyProcessor';
 import { InputKeyProcessor } from './processors/InputKeyProcessor';
-import { SideArrowKeyProcessor } from './processors/SideArrowKeyProcessor';
+import { RightArrowKeyProcessor } from './processors/RightArrowKeyProcessor';
 import { BackspaceKeyProcessor } from './processors/BackspaceKeyProcessor';
 import { DeleteKeyProcessor } from './processors/DeleteKeyProcessor';
 import { EnterKeyProcessor } from './processors/EnterKeyProcessor';
 import { ReloadKeyProcessor } from './processors/ReloadKeyProcessor';
 import { ResetKeyProcessor } from './processors/ResetKeyProcessor';
-import { UpDownArrowKeyProcessor } from './processors/UpDownArrowKeyProcessor';
+import { UpArrowKeyProcessor } from './processors/UpArrowKeyProcessor';
+import { DownArrowKeyProcessor } from './processors/DownArrowKeyProcessor';
+import { LeftArrowKeyProcessor } from './processors/LeftArrowKeyProcessor';
 
 const keyProcessorSearcher = new TreeSearcher<IKeyProcessor>({
     node: new KeyProcessor(),
@@ -24,7 +26,16 @@ const keyProcessorSearcher = new TreeSearcher<IKeyProcessor>({
             ],
         },
         {
-            node: new SideArrowKeyProcessor(),
+            node: new LeftArrowKeyProcessor(),
+        },
+        {
+            node: new RightArrowKeyProcessor(),
+        },
+        {
+            node: new UpArrowKeyProcessor(),
+        },
+        {
+            node: new DownArrowKeyProcessor(),
         },
         {
             node: new BackspaceKeyProcessor(),
@@ -34,9 +45,6 @@ const keyProcessorSearcher = new TreeSearcher<IKeyProcessor>({
         },
         {
             node: new EnterKeyProcessor(),
-        },
-        {
-            node: new UpDownArrowKeyProcessor(),
         },
     ],
 });

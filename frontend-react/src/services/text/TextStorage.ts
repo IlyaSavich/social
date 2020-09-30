@@ -5,7 +5,7 @@ class TextStorage {
         return this.rows;
     }
 
-    public newRow() {
+    public newLine() {
         this.rows.push('');
     }
 

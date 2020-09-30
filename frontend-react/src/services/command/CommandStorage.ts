@@ -21,7 +21,7 @@ class CommandStorage {
         this.history.slice(-1);
     }
 
-    public newLine(): void {
+    public newCommand(): void {
         this.history.push('');
     }
 }

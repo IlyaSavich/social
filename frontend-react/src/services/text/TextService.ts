@@ -18,6 +18,12 @@ export function updateLastRow(text: string): void {
     renderScreenText();
 }
 
+export function newLine(): void {
+    caret.newLine();
+    textStorage.newLine();
+    renderScreenText();
+}
+
 export function getScreenText(): string[] {
     return textStorage.getRows().slice(-ROWS_ON_SCREEN);
 }

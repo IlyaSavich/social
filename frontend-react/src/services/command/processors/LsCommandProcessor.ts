@@ -4,8 +4,16 @@ import * as textService from '../../text/TextService';
 import caret from '../../caret/Caret';
 
 export class LsCommandProcessor implements ICommandProcessor {
-    public getCommandName(): string {
+    public getName(): string {
         return 'ls';
+    }
+
+    getPossibleArgumentsCount(): number[] {
+        return [0];
+    }
+
+    public getOptions(): string[] {
+        return [];
     }
 
     public getDescription(): string {

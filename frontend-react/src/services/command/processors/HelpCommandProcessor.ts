@@ -1,25 +1,48 @@
 import { ICommandProcessor } from './CommandProcessor';
 import * as textService from '../../text/TextService';
-import caret from '../../caret/Caret';
 import commandExecutor from '../CommandExecutor';
+import { CommandError } from '../../../errors/CommandError';
 
 export class HelpCommandProcessor implements ICommandProcessor {
-    public getCommandName(): string {
+    public getName(): string {
         return 'help';
+    }
+
+    public getPossibleArgumentsCount(): number[] {
+        return [0, 1];
+    }
+
+    public getOptions(): string[] {
+        return [];
     }
 
     public getDescription(): string {
         return 'Lists all available commands.';
     }
 
-    public process(): void {
-        caret.hide();
+    public process(args: string[]): void {
+        if (args.length) {
+            this.printCommand(args[0]);
+        } else {
+            this.printCommandList();
+        }
+    }
 
+    private printCommand(commandName: string): void {
+        const command = commandExecutor.getCommand(commandName);
+
+        if (!command) {
+            throw new CommandError(`Command '${commandName}' not found.`);
+        }
+
+        textService.appendText(command.getName() + ' ' + command.getDescription());
+        textService.newLine();
+    }
+
+    private printCommandList(): void {
         commandExecutor.getCommands().forEach((command) => {
-            textService.appendText(command.getCommandName() + ' ' + command.getDescription());
+            textService.appendText(command.getName() + ' ' + command.getDescription());
             textService.newLine();
         });
-
-        caret.show();
     }
 }

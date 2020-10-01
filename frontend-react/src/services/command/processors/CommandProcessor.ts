@@ -1,5 +1,11 @@
 export interface ICommandProcessor {
-    getCommandName(): string;
+    getName(): string;
+    getOptions(): string[];
     getDescription(): string;
-    process(): void;
+    getPossibleArgumentsCount(): number[];
+    process(args: string[], options: ICommandOptions): void;
+}
+
+export interface ICommandOptions {
+    [key: string]: string;
 }

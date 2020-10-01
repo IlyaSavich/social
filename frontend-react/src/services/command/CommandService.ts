@@ -2,7 +2,7 @@ import commandStorage from './CommandStorage';
 import commandExecutor from './CommandExecutor';
 import * as textService from '../text/TextService';
 import caret from '../caret/Caret';
-import { CommandNotFoundError } from '../../errors/CommandNotFoundError';
+import { CommandError } from '../../errors/CommandError';
 
 export function getLetterForActiveCommand(position: number): string {
     const command = commandStorage.get();
@@ -57,7 +57,7 @@ export function executeActiveCommand(): void {
     try {
         commandExecutor.execute(command);
     } catch (e) {
-        if (e instanceof CommandNotFoundError) {
+        if (e instanceof CommandError) {
             textService.appendText(e.message);
             textService.newLine();
             return;

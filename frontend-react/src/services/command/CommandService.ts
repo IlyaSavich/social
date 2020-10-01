@@ -48,7 +48,7 @@ export function setNextCommand(): void {
 }
 
 export function pathInfo(): string {
-    return 'user:/$ ';
+    return 'anonymous:/$ ';
 }
 
 export function executeActiveCommand(): void {

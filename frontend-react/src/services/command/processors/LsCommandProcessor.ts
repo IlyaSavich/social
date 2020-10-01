@@ -1,22 +1,22 @@
 import { ICommandProcessor } from './CommandProcessor';
+import stepTree from '../../steps/StepTree';
 import * as textService from '../../text/TextService';
 import caret from '../../caret/Caret';
-import commandExecutor from '../CommandExecutor';
 
-export class HelpCommandProcessor implements ICommandProcessor {
+export class LsCommandProcessor implements ICommandProcessor {
     public getCommandName(): string {
-        return 'help';
+        return 'ls';
     }
 
     public getDescription(): string {
-        return 'Lists all available commands.';
+        return 'Lists all available steps.';
     }
 
     public process(): void {
         caret.hide();
 
-        commandExecutor.getCommands().forEach((command) => {
-            textService.appendText(command.getCommandName() + ' ' + command.getDescription());
+        stepTree.getCurrentSteps().forEach((step) => {
+            textService.appendText(step);
             textService.newLine();
         });
 

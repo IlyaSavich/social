@@ -21,7 +21,7 @@ export class LsCommandProcessor implements ICommandProcessor {
 
     public process(): void {
         filesystemService.getStorage().getCurrentDirectory().getAllNames().forEach((step) => {
-            textService.appendText(step);
+            textService.writeText(step);
             textService.newLine();
         });
     }

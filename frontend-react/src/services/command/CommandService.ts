@@ -40,13 +40,13 @@ export function resetCommand(): void {
 export function setPreviousCommand(): void {
     commandStorage.increaseOffset();
     textService.updateLastRow(pathInfo()); // TODO
-    textService.appendText(commandStorage.get());
+    textService.writeText(commandStorage.get());
 }
 
 export function setNextCommand(): void {
     commandStorage.decreaseOffset();
     textService.updateLastRow(pathInfo()); // TODO
-    textService.appendText(commandStorage.get());
+    textService.writeText(commandStorage.get());
 }
 
 export function pathInfo(): string {
@@ -77,7 +77,7 @@ function replaceActiveCommand(command: string, caretPosition: number) {
     caretService.forceShow();
 
     textService.updateLastRow(pathInfo()); // TODO
-    textService.appendText(command);
+    textService.writeText(command);
 
     setCaretPositionInCommand(command, caretPosition);
     screenTextRenderer.draw();

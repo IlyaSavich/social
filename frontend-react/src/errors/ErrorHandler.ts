@@ -6,7 +6,7 @@ export function handle(callback: () => any): void {
         return callback();
     } catch (e) {
         if (e instanceof TerminalError) {
-            textService.appendText(e.message);
+            textService.writeText(e.message);
             textService.newLine();
             return;
         }

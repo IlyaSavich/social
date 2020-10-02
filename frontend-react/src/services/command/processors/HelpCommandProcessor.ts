@@ -35,13 +35,13 @@ export class HelpCommandProcessor implements ICommandProcessor {
             throw new TerminalError(`Command '${commandName}' not found.`);
         }
 
-        textService.appendText(command.getName() + ' ' + command.getDescription());
+        textService.writeText(command.getName() + ' ' + command.getDescription());
         textService.newLine();
     }
 
     private printCommandList(): void {
         commandExecutor.getCommands().forEach((command) => {
-            textService.appendText(command.getName() + ' ' + command.getDescription());
+            textService.writeText(command.getName() + ' ' + command.getDescription());
             textService.newLine();
         });
     }

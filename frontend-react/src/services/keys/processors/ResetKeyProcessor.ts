@@ -8,7 +8,7 @@ export class ResetKeyProcessor extends KeyProcessor {
     }
 
     public process(e: KeyboardEvent) {
-        textService.appendText('^C');
+        textService.writeText('^C');
         textService.newLine();
         commandService.resetCommand();
     }

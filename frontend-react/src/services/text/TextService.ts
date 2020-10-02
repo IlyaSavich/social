@@ -3,7 +3,14 @@ import caret from '../caret/Caret';
 import * as screenTextRenderer from '../../renderer/ScreenTextRenderer';
 import * as caretService from '../caret/CaretService';
 
-export function appendText(text: string): void {
+export function writeBatch(text: string[]): void {
+    text.forEach((row) => {
+        writeText(row);
+        newLine();
+    });
+}
+
+export function writeText(text: string): void {
     caretService.appendPositionByText(text);
     textStorage.appendToRow(text);
 

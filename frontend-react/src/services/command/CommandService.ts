@@ -3,6 +3,8 @@ import commandExecutor from './CommandExecutor';
 import * as textService from '../text/TextService';
 import caret from '../caret/Caret';
 import { CommandError } from '../../errors/CommandError';
+import * as caretService from '../caret/CaretService';
+import * as screenTextRenderer from '../../renderer/ScreenTextRenderer';
 
 export function getLetterForActiveCommand(position: number): string {
     const command = commandStorage.get();
@@ -10,18 +12,18 @@ export function getLetterForActiveCommand(position: number): string {
     return command.slice(position, position + 1);
 }
 
-export function insertIntoCaretPositionActiveCommand(text: string): void {
+export function insertIntoCaretPositionActiveCommand(text: string, position: number): void {
     const command = commandStorage.get();
-    const newCommand = command.slice(0, caret.textPositionX) + text + command.slice(caret.textPositionX);
+    const newCommand = command.slice(0, position) + text + command.slice(position);
 
-    replaceActiveCommand(newCommand);
+    replaceActiveCommand(newCommand, position + text.length);
 }
 
 export function removeFromPositionActiveCommand(position: number): void {
     const command = commandStorage.get();
     const newCommand = command.slice(0, position) + command.slice(position + 1);
 
-    replaceActiveCommand(newCommand);
+    replaceActiveCommand(newCommand, position);
 }
 
 export function newCommand(): void {
@@ -67,9 +69,20 @@ export function executeActiveCommand(): void {
     }
 }
 
-function replaceActiveCommand(command: string) {
+function setCaretPositionInCommand(command: string, position: number) {
+    caret.returnCaret();
+    caretService.appendPixelPositionByText(pathInfo());
+    caretService.appendPositionByText(command.slice(0, position));
+}
+
+function replaceActiveCommand(command: string, caretPosition: number) {
     commandStorage.replaceCommand(command);
+
+    caretService.forceShow();
 
     textService.updateLastRow(pathInfo()); // TODO
     textService.appendText(command);
+
+    setCaretPositionInCommand(command, caretPosition);
+    screenTextRenderer.draw();
 }

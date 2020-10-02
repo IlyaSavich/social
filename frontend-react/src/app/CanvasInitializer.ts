@@ -1,4 +1,4 @@
-import * as caretRenderer from '../renderer/CaretRenderer'
+import caretRenderer from '../renderer/CaretRenderer'
 import * as textService from '../services/text/TextService'
 import * as commandService from '../services/command/CommandService'
 import canvas from '../services/canvas/Canvas'

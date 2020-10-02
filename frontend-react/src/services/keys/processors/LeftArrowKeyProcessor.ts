@@ -11,14 +11,10 @@ export class LeftArrowKeyProcessor extends KeyProcessor {
     }
 
     public process(e: KeyboardEvent) {
-        screenTextRenderer.draw();
-
-        caret.hide();
-
         const letter = commandService.getLetterForActiveCommand(caret.textPositionX - 1);
         caretService.appendPositionByText(letter, Direction.Left);
 
-        caret.show();
+        screenTextRenderer.draw();
     }
 
     private isLeftArrowKey(e: KeyboardEvent) {

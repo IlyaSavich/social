@@ -6,7 +6,7 @@ const ZERO_COORDINATE = { x: screenConfigs.margin, y: ROW_HEIGHT + screenConfigs
 class Caret {
     private _x: number = ZERO_COORDINATE.x;
     private _y: number = ZERO_COORDINATE.y;
-    private isHiddenLevel: number = 0;
+    private forcedShowTimeoutHandle: number | null = null;
     private _textPositionX: number = 0;
     private linePosition: number = 1;
 
@@ -18,8 +18,8 @@ class Caret {
         return this._y;
     }
 
-    public get isHidden(): boolean {
-        return this.isHiddenLevel > 0;
+    public get isForcedShow(): boolean {
+        return !!this.forcedShowTimeoutHandle;
     }
 
     public get textPositionX(): number {
@@ -44,14 +44,11 @@ class Caret {
         this.returnCaret();
     }
 
-    public show() {
-        if (this.isHiddenLevel > 0) {
-            this.isHiddenLevel--;
+    public forceShowForTime(): void {
+        if (this.forcedShowTimeoutHandle) {
+            clearTimeout(this.forcedShowTimeoutHandle);
         }
-    }
-
-    public hide() {
-        this.isHiddenLevel++;
+        this.forcedShowTimeoutHandle = setTimeout(() => this.forcedShowTimeoutHandle = null, 700) as unknown as number;
     }
 
     public appendTextPosition(textPosition: number): void {

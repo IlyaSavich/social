@@ -11,14 +11,10 @@ export class RightArrowKeyProcessor extends KeyProcessor {
     }
 
     public process(e: KeyboardEvent) {
-        screenTextRenderer.draw();
-
-        caret.hide();
-
         const letter = commandService.getLetterForActiveCommand(caret.textPositionX);
         caretService.appendPositionByText(letter, Direction.Right);
 
-        caret.show();
+        screenTextRenderer.draw();
     }
 
     private isRightArrowKey(e: KeyboardEvent) {

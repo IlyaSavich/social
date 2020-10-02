@@ -1,14 +1,11 @@
 import canvas from '../services/canvas/Canvas'
 import textConfig from '../configs/text'
 import screenConfigs from '../configs/screen';
-import * as clearRenderer from './ClearRenderer';
 
 const FONT = `${textConfig.font.size} ${textConfig.font.family}`;
 
 export function renderScreenText(text: string[]) {
     canvas.context.save();
-
-    clearRenderer.clear();
 
     canvas.context.fillStyle = textConfig.color;
     canvas.context.font = FONT;

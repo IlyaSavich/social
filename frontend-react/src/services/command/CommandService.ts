@@ -2,9 +2,9 @@ import commandStorage from './CommandStorage';
 import commandExecutor from './CommandExecutor';
 import * as textService from '../text/TextService';
 import caret from '../caret/Caret';
-import { CommandError } from '../../errors/CommandError';
 import * as caretService from '../caret/CaretService';
 import * as screenTextRenderer from '../../renderer/ScreenTextRenderer';
+import * as errorHandler from '../../errors/ErrorHandler';
 
 export function getLetterForActiveCommand(position: number): string {
     const command = commandStorage.get();
@@ -56,17 +56,13 @@ export function pathInfo(): string {
 export function executeActiveCommand(): void {
     const command = commandStorage.get();
 
-    try {
-        commandExecutor.execute(command);
-    } catch (e) {
-        if (e instanceof CommandError) {
-            textService.appendText(e.message);
-            textService.newLine();
-            return;
-        }
-
-        throw e;
+    if (!command) {
+        return;
     }
+
+    errorHandler.handle(() => {
+        commandExecutor.execute(command);
+    });
 }
 
 function setCaretPositionInCommand(command: string, position: number) {

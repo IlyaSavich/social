@@ -16,5 +16,5 @@ export function draw() {
 }
 
 function getScreenText(): string[] {
-    return textStorage.getRows().slice(-screenConfig.rowsOnScreen);
+    return textStorage.getAll().slice(-screenConfig.rowsOnScreen);
 }

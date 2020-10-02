@@ -1,5 +1,5 @@
 import { ICommandOptions } from './processors/CommandProcessor';
-import { CommandError } from '../../errors/CommandError';
+import { TerminalError } from '../../errors/TerminalError';
 
 export interface IParsedCommand {
     name: string;
@@ -12,7 +12,7 @@ export function parse(command: string): IParsedCommand {
     const name = words.shift();
 
     if (!name) {
-        throw new CommandError(`Invalid command '${name}'`);
+        throw new TerminalError(`Invalid command '${name}'`);
     }
 
     const [args, options] = words.reduce((acc, word) => {
@@ -32,11 +32,11 @@ function parseOption(option: string): ICommandOptions {
     const match = option.match(/-([a-zA-Z0-9]+)=([a-zA-Z0-9]+)/)!;
 
     if (!match[1]) {
-        throw new CommandError(`Invalid option name '${match[1]}'`);
+        throw new TerminalError(`Invalid option name '${match[1]}'`);
     }
 
     if (!match[2]) {
-        throw new CommandError(`Invalid option value '${match[2]}'`);
+        throw new TerminalError(`Invalid option value '${match[2]}'`);
     }
 
     return { [match[1]]: match[2] };

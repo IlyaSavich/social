@@ -5,7 +5,7 @@ import * as caretService from '../caret/CaretService';
 
 export function appendText(text: string): void {
     caretService.appendPositionByText(text);
-    textStorage.appendToLastRow(text);
+    textStorage.appendToRow(text);
 
     screenTextRenderer.draw();
 }
@@ -13,7 +13,7 @@ export function appendText(text: string): void {
 export function updateLastRow(text: string): void {
     caret.returnCaret();
     caretService.appendPixelPositionByText(text);
-    textStorage.updateLastRow(text);
+    textStorage.updateRow(text);
     screenTextRenderer.draw();
 }
 

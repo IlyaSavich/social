@@ -1,7 +1,7 @@
 import { ICommandProcessor } from './CommandProcessor';
 import * as textService from '../../text/TextService';
 import commandExecutor from '../CommandExecutor';
-import { CommandError } from '../../../errors/CommandError';
+import { TerminalError } from '../../../errors/TerminalError';
 
 export class HelpCommandProcessor implements ICommandProcessor {
     public getName(): string {
@@ -32,7 +32,7 @@ export class HelpCommandProcessor implements ICommandProcessor {
         const command = commandExecutor.getCommand(commandName);
 
         if (!command) {
-            throw new CommandError(`Command '${commandName}' not found.`);
+            throw new TerminalError(`Command '${commandName}' not found.`);
         }
 
         textService.appendText(command.getName() + ' ' + command.getDescription());

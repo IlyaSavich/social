@@ -1,5 +1,5 @@
 import { ICommandProcessor } from './CommandProcessor';
-import stepTree from '../../steps/StepTree';
+import * as filesystemService from '../../filesystem/FilesystemService';
 import * as textService from '../../text/TextService';
 
 export class LsCommandProcessor implements ICommandProcessor {
@@ -16,11 +16,11 @@ export class LsCommandProcessor implements ICommandProcessor {
     }
 
     public getDescription(): string {
-        return 'Lists all available steps.';
+        return 'Lists all available files.';
     }
 
     public process(): void {
-        stepTree.getCurrentSteps().forEach((step) => {
+        filesystemService.getStorage().getCurrentDirectory().getAllNames().forEach((step) => {
             textService.appendText(step);
             textService.newLine();
         });

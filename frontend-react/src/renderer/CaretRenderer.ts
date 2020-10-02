@@ -6,7 +6,7 @@ import * as commandService from '../services/command/CommandService';
 import * as textRenderer from './TextRenderer';
 
 class CaretRenderer {
-    public render() {
+    public initTimer() {
         let shouldBeDrawn = true;
 
         setInterval(() => {

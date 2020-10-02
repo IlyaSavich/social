@@ -1,20 +1,24 @@
 class TextStorage {
     private rows: string[] = [''];
 
-    public getRows() {
+    public getAll() {
         return this.rows;
     }
 
-    public newLine() {
-        this.rows.push('');
+    public get(index: number = this.rows.length - 1): string {
+        return this.rows[index];
     }
 
-    public updateLastRow(text: string) {
-        this.rows[this.rows.length - 1] = text;
+    public newLine(index: number = this.rows.length - 1) {
+        this.rows.splice(index + 1, 0, '');
     }
 
-    public appendToLastRow(text: string) {
-        this.rows[this.rows.length - 1] += text;
+    public updateRow(text: string, index: number = this.rows.length - 1) {
+        this.rows[index] = text;
+    }
+
+    public appendToRow(text: string, index: number = this.rows.length - 1) {
+        this.rows[index] += text;
     }
 }
 

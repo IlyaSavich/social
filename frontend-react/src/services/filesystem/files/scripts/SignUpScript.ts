@@ -1,6 +1,6 @@
-import { IScript } from './Script';
+import { Script } from './Script';
 
-export class SignUpScript implements IScript {
+export class SignUpScript extends Script {
     public getName(): string {
         return 'sign-up';
     }

@@ -1,6 +1,6 @@
 import { ICommandOptions, ICommandProcessor } from './processors/CommandProcessor';
 import * as commandParser from './CommandParser';
-import { CommandError } from '../../errors/CommandError';
+import { TerminalError } from '../../errors/TerminalError';
 
 class CommandExecutor {
     private commandsMap: { [key: string]: ICommandProcessor } = {};
@@ -27,7 +27,7 @@ class CommandExecutor {
         const parsedCommand = commandParser.parse(command);
 
         if (!this.hasCommand(parsedCommand.name)) {
-            throw new CommandError(`Command '${parsedCommand.name}' not found.`);
+            throw new TerminalError(`Command '${parsedCommand.name}' not found.`);
         }
 
         const commandProcessor = this.getCommand(parsedCommand.name);
@@ -45,7 +45,7 @@ class CommandExecutor {
         );
 
         if (notRegisteredOptions.length) {
-            throw new CommandError(`Options '${notRegisteredOptions.join("','")}' are unknown.`);
+            throw new TerminalError(`Options '${notRegisteredOptions.join("','")}' are unknown.`);
         }
     }
 
@@ -53,7 +53,7 @@ class CommandExecutor {
         const expectedArgumentsCount = processor.getPossibleArgumentsCount();
 
         if (!expectedArgumentsCount.includes(args.length)) {
-            throw new CommandError(`Expected ${expectedArgumentsCount.join(' or ')} argument(s).`);
+            throw new TerminalError(`Expected ${expectedArgumentsCount.join(' or ')} argument(s).`);
         }
     }
 }

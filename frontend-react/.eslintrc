@@ -1,0 +1,22 @@
+{
+  "env": {
+    "es2020": true,
+    "browser": true
+  },
+
+  "extends": [
+    "airbnb-typescript",
+    "plugin:unicorn/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+
+  "plugins": [
+    "prettier",
+    "unicorn"
+  ],
+
+  "parserOptions": {
+    "project": ["./tsconfig.json"]
+  }
+}
